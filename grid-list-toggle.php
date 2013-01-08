@@ -2,11 +2,11 @@
 /*
 Plugin Name: WooCommerce Grid / List toggle
 Description: Adds a grid/list view toggle to product archives
-Version: 0.1
+Version: 0.1.1
 Author: jameskoster
 Author URI: http://jameskoster.co.uk
 Requires at least: 3.1
-Tested up to: 3.4.1
+Tested up to: 3.5
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 */
@@ -38,10 +38,12 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 			function setup_gridlist() {
 				add_action( 'get_header', array(&$this, 'setup_scripts_styles'), 20);
 				add_action( 'woocommerce_before_shop_loop', array(&$this, 'gridlist_toggle_button'), 20);
-				add_action( 'woocommerce_after_shop_loop_item', 'woocommerce_template_single_excerpt', 5);
 				add_action( 'woocommerce_after_shop_loop_item', array(&$this, 'gridlist_buttonwrap_open'), 9);
 				add_action( 'woocommerce_after_shop_loop_item', array(&$this, 'gridlist_buttonwrap_close'), 11);
 				add_action( 'woocommerce_after_shop_loop_item', array(&$this, 'gridlist_hr'), 30);
+				if ( is_shop() || is_product_category() || is_product_tag() ) {
+					add_action( 'woocommerce_after_shop_loop_item', 'woocommerce_template_single_excerpt', 5);
+				}
 			}
 			
 			// Scripts & styles
