@@ -15,7 +15,7 @@ ul.products.list li.product:after {
   clear: both;
 }
 ul.products.list li.product img {
-  width: 30.75%;
+  width: 30.75% !important;
   float: left;
   margin-bottom: 1.5em;
   -webkit-transition: none !important;
@@ -37,6 +37,10 @@ ul.products.list li.product .gridlist-buttonwrap {
 ul.products.list li.product hr {
   clear: both;
 }
-#gridlist-toggle a span {
+.gridlist-toggle a {
+  text-decoration: none !important;
+  font-size: 1.6em;
+}
+.gridlist-toggle a span {
   display: none;
 }

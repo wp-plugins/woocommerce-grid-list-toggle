@@ -37,7 +37,7 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 			// Setup
 			function setup_gridlist() {
 				add_action( 'get_header', array(&$this, 'setup_scripts_styles'), 20);
-				add_action( 'woocommerce_before_shop_loop', array(&$this, 'gridlist_toggle_button'), 20);
+				add_action( 'woocommerce_before_shop_loop', array(&$this, 'gridlist_toggle_button'), 30);
 				add_action( 'woocommerce_after_shop_loop_item', array(&$this, 'gridlist_buttonwrap_open'), 9);
 				add_action( 'woocommerce_after_shop_loop_item', array(&$this, 'gridlist_buttonwrap_close'), 11);
 				add_action( 'woocommerce_after_shop_loop_item', array(&$this, 'gridlist_hr'), 30);
@@ -58,7 +58,7 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 			// Toggle button
 			function gridlist_toggle_button() {
 				?>
-					<nav id="gridlist-toggle">
+					<nav class="gridlist-toggle">
 						<a href="#" id="grid" class="active" title="<?php _e('Grid view', 'wc_list_grid_toggle'); ?>">&#8862; <span><?php _e('Grid view', 'wc_list_grid_toggle'); ?></span></a><a href="#" id="list" title="<?php _e('List view', 'wc_list_grid_toggle'); ?>">&#8863; <span><?php _e('List view', 'wc_list_grid_toggle'); ?></span></a>
 					</nav>
 				<?php
