@@ -3,13 +3,15 @@
 Plugin Name: WooCommerce Grid / List toggle
 Plugin URI: http://jameskoster.co.uk/tag/grid-list-toggle/
 Description: Adds a grid/list view toggle to product archives
-Version: 0.3.2
+Version: 0.3.3
 Author: jameskoster
 Author URI: http://jameskoster.co.uk
 Requires at least: 3.1
-Tested up to: 3.5
+Tested up to: 3.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
+Text Domain: wc_list_grid_toggle
+Domain Path: /languages/
 */
 
 /**
@@ -20,7 +22,7 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 	/**
 	 * Localisation
 	 **/
-	load_plugin_textdomain('wc_list_grid_toggle', false, dirname( plugin_basename( __FILE__ ) ) . '/');
+	load_plugin_textdomain( 'wc_list_grid_toggle', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
 
 	/**
 	 * WC_List_Grid class
@@ -31,7 +33,7 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 
 			public function __construct() {
 				// Hooks
-  				add_action( 'wp' , array(&$this, 'setup_gridlist' ) , 20);
+  				add_action( 'wp' , array( $this, 'setup_gridlist' ) , 20);
 
   				// Init settings
 				$this->settings = array(
@@ -57,8 +59,8 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 				add_option( 'wc_glt_default', 'grid' );
 
 				// Admin
-				add_action( 'woocommerce_settings_image_options_after', array( &$this, 'admin_settings' ), 20);
-				add_action( 'woocommerce_update_options_catalog', array( &$this, 'save_admin_settings' ) );
+				add_action( 'woocommerce_settings_image_options_after', array( $this, 'admin_settings' ), 20);
+				add_action( 'woocommerce_update_options_catalog', array( $this, 'save_admin_settings' ) );
 			}
 
 			/*-----------------------------------------------------------------------------------*/
@@ -76,14 +78,14 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 			// Setup
 			function setup_gridlist() {
 				if ( is_shop() || is_product_category() || is_product_tag() ) {
-					add_action( 'wp_enqueue_scripts', array(&$this, 'setup_scripts_styles'), 20);
-					add_action( 'wp_enqueue_scripts', array(&$this, 'setup_scripts_script'), 20);
-					add_action( 'woocommerce_before_shop_loop', array(&$this, 'gridlist_toggle_button'), 30);
-					add_action( 'woocommerce_after_shop_loop_item', array(&$this, 'gridlist_buttonwrap_open'), 9);
-					add_action( 'woocommerce_after_shop_loop_item', array(&$this, 'gridlist_buttonwrap_close'), 11);
-					add_action( 'woocommerce_after_shop_loop_item', array(&$this, 'gridlist_hr'), 30);
+					add_action( 'wp_enqueue_scripts', array( $this, 'setup_scripts_styles' ), 20);
+					add_action( 'wp_enqueue_scripts', array( $this, 'setup_scripts_script' ), 20);
+					add_action( 'woocommerce_before_shop_loop', array( $this, 'gridlist_toggle_button' ), 30);
+					add_action( 'woocommerce_after_shop_loop_item', array( $this, 'gridlist_buttonwrap_open' ), 9);
+					add_action( 'woocommerce_after_shop_loop_item', array( $this, 'gridlist_buttonwrap_close' ), 11);
+					add_action( 'woocommerce_after_shop_loop_item', array( $this, 'gridlist_hr' ), 30);
 					add_action( 'woocommerce_after_shop_loop_item', 'woocommerce_template_single_excerpt', 5);
-					add_action( 'woocommerce_after_subcategory', array(&$this, 'gridlist_cat_desc' ));
+					add_action( 'woocommerce_after_subcategory', array( $this, 'gridlist_cat_desc' ) );
 				}
 			}
 
